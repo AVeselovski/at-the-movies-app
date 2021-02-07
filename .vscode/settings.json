@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "[erb]": {
+    // or [erb] / [gemfile]
+    "editor.formatOnSave": true
+  },
+  "emmet.includeLanguages": { "*.erb": "html", "ruby": "html" }
+}

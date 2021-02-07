@@ -1,0 +1,30 @@
+<div class="container">
+  <% if @venues.count == 0 %>
+    Welcome <%= current_user.username %>, start by creating a venue.
+  <% end %>
+
+  <% @venues.each do |venue| %>
+    <div class="box mb-3">
+      <div class="flex justify-between mb-2">
+        <h2 class="heading-4 mb-0">
+          <%= link_to venue, class: "" do %>
+            <%= venue.name %>
+          <% end %>
+        </h2>
+        <div>
+          <%= link_to edit_venue_path(venue), class: "link" do %>
+            <i class="fas fa-edit"></i>
+            Edit
+          <% end %>
+          <%= link_to venue, method: :delete, data: { confirm: 'Are you sure?' }, class: "link link-danger ml-3" do %>
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          <% end %>
+        </div>
+      </div>
+      <p class="mb-0"><%= venue.location %></p>
+    </div>
+  <% end %>
+
+  <%= link_to '+ New Venue', new_venue_path, class: "btn btn-full btn-lg" %>
+</div>

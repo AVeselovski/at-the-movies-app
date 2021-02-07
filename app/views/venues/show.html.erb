@@ -1,0 +1,33 @@
+<div class="container">
+
+  <h1 class="mb-1"><%= @venue.name %></h1>
+  <p class="mb-2"><%= @venue.description %></p>
+  <p class="lead text-secondary"><i class="fas fa-map-marker-alt mr-2"></i><%= @venue.location %></p>
+
+  <div class="mb-4">
+    <%= link_to 'Edit', edit_venue_path(@venue) %> |
+    <%= link_to 'Destroy', @venue, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+
+  <div>
+    <!-- Movies list goes here -->
+    <% @movies.each do |movie| %>
+      <div class="card mb-3">
+        <div class="card-header">
+          <h2 class="heading-4"><%= movie.title %></h2>
+          <div class="flex text-secondary text-md">
+            <a href="#" class="btn ml-2"><i class="far fa-thumbs-up mr-2"></i>Give vote</a>
+            <div class="ml-2">
+              <span>0</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p><%= movie.description %></p>
+          <p class="mb-0">Year: <strong><%= movie.year_of_release %></strong></p>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to "+ Add movie", new_movie_path, class: "btn btn-full btn-lg" %>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= t('app_title') %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="header-left">
+        <h1 class="heading-base">
+          <a href="#" class="text-secondary"><%= t('app_title') %></a>
+        </h1>
+      </div>
+      <div class="header-center screen-lg">
+        <ul class="header-nav">
+          <li class="nav-desktop-item">
+            <%= link_to "Venues", venues_path %>
+          </li>
+          <li class="nav-desktop-item">
+            <a href="#">Events</a>
+          </li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-inverted-danger" %>
+      </div>
+    </div>
+
+    <div class="page">
+      <%= yield %>
+    </div>
+
+    <aside class="flash-alerts">
+      <% flash.each do |type, value| %>
+        <div class="flash-alert flash-alert-<%= type %>">
+          <%= value %>
+          <i class="fas fa-times"></i>
+        </div>
+      <% end %>
+    </aside>
+  </body>
+</html>

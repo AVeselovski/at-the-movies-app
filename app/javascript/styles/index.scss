@@ -1,0 +1,54 @@
+// need to address webfonts location first...
+// @import "~comrade-styles/scss/comrade";
+
+.flash-alerts {
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  position: fixed;
+  right: 0;
+
+  @media (min-width: 768px) {
+    padding: 0 16px 16px 16px;
+  }
+
+  .flash-alert {
+    align-items: center;
+    border-top: 1px solid;
+    border-color: #e1e1e2;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      border: 1px solid;
+      border-radius: 3px;
+      max-width: 736px;
+    }
+
+    &.flash-alert-success {
+      background-color: #5cb85c;
+      color: #fafafa;
+    }
+    &.flash-alert-error {
+      background-color: #d9534f;
+      color: #fafafa;
+    }
+  }
+}
+
+.box-link {
+  color: inherit;
+  display: block;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: linear-gradient(-145deg, #fafafa, #fff);
+    color: inherit;
+  }
+}
