@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_07_080229) do
+ActiveRecord::Schema.define(version: 2021_02_14_125116) do
 
   create_table "events", force: :cascade do |t|
     t.date "event_date"
@@ -18,6 +18,9 @@ ActiveRecord::Schema.define(version: 2021_02_07_080229) do
     t.integer "venue_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "showings"
+    t.boolean "cancelled"
+    t.text "info"
   end
 
   create_table "maybe_participations", force: :cascade do |t|
@@ -42,6 +45,9 @@ ActiveRecord::Schema.define(version: 2021_02_07_080229) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "venue_id"
+    t.integer "added_by"
+    t.boolean "is_disabled", default: false
+    t.text "disabled_reason", default: ""
   end
 
   create_table "participations", force: :cascade do |t|
@@ -60,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_02_07_080229) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "username"
+    t.integer "selected_venue"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,0 +1,26 @@
+<div class="header">
+  <div class="header-left pl-5">
+    <h1 class="heading-base">
+      <%= link_to root_path, class:"text-black" do %>
+        <%= t('app_title') %>
+      <% end %>
+    </h1>
+  </div>
+  <div class="header-center">
+    <ul class="header-nav">
+      <li class="nav-desktop-item">
+        <%= link_to "Movies", movies_path %>
+      </li>
+      <li class="nav-desktop-item">
+        <%= link_to "Events", events_path %>
+      </li>
+    </ul>
+  </div>
+  <div class="header-right screen-md">
+    <ul class="header-nav light">
+      <li class="nav-desktop-item">
+        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "link-danger" %>
+      </li>
+    </ul>
+  </div>
+</div>

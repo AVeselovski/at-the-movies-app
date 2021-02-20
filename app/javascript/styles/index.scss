@@ -1,5 +1,54 @@
-// need to address webfonts location first...
+// Need to address webfonts location first...
 // @import "~comrade-styles/scss/comrade";
+
+/** Overrides due to comrade-styles stupidity */
+
+body {
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+}
+.heading-base {
+  line-height: 1;
+}
+p {
+  line-height: 1.5;
+}
+label {
+  line-height: 1.75;
+}
+.screen-sm-only {
+  @media (max-width: 767px) {
+    display: initial;
+  }
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+  @media (min-width: 992px) {
+    display: none !important;
+  }
+}
+._screen-md {
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+  @media (min-width: 768px) {
+    display: initial;
+  }
+  @media (min-width: 992px) {
+    display: initial;
+  }
+}
+
+/** */
+
+/** Will be added to comrade-styles */
 
 .flash-alerts {
   align-items: center;
@@ -16,10 +65,10 @@
   }
 
   .flash-alert {
-    align-items: center;
+    align-items: flex-start;
     border-top: 1px solid;
     border-color: #e1e1e2;
-    display: flex;
+    display: none;
     justify-content: space-between;
     padding: 8px 16px;
     width: 100%;
@@ -30,6 +79,10 @@
       max-width: 736px;
     }
 
+    &.flash-alert-info {
+      background-color: #51afcc;
+      color: #fafafa;
+    }
     &.flash-alert-success {
       background-color: #5cb85c;
       color: #fafafa;
@@ -38,12 +91,43 @@
       background-color: #d9534f;
       color: #fafafa;
     }
+    &.flash-alert-warning {
+      background-color: #faa825;
+      color: #fafafa;
+    }
+
+    .alert-close {
+      color: #fff;
+      margin-left: 16px;
+    }
+  }
+  .flash-alert.show {
+    display: flex;
   }
 }
 
+.alert {
+  align-items: flex-start;
+  border: 1px solid;
+  border-color: #e1e1e2;
+  border-radius: 3px;
+  display: none;
+  justify-content: space-between;
+  padding: 16px;
+
+  .alert-close {
+    margin-left: 16px;
+  }
+  &.alert-info {
+    border-color: #1b6d85;
+  }
+}
+.alert.show {
+  display: flex;
+}
+
 .box-link {
-  color: inherit;
-  display: block;
+  position: relative;
 
   &:hover,
   &:focus,
@@ -51,4 +135,93 @@
     background: linear-gradient(-145deg, #fafafa, #fff);
     color: inherit;
   }
+
+  .box-main-link::before {
+    content: " ";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
+
+.card {
+  overflow: hidden;
+}
+.card-footer {
+  border-top: 1px solid #e1e1e2;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+
+  .card-footer-actions {
+    display: flex;
+
+    a,
+    .link,
+    button,
+    .btn {
+      border: none;
+      border-left: 1px solid #e1e1e2;
+      border-radius: 0px;
+      padding-left: 16px;
+      padding-right: 16px;
+
+      &:hover {
+        border-color: #e1e1e2 !important;
+      }
+    }
+  }
+}
+
+/** Basic styles & overrides */
+
+.page.open {
+  margin-left: 256px;
+  transition: margin-left 175ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.custom-box-link {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+  justify-content: center;
+  padding: 16px 32px;
+
+  @media (min-width: 768px) {
+    height: 280px;
+  }
+}
+.custom-card-link {
+  * {
+    margin-left: 0;
+    transition: margin-left 175ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  &:hover {
+    * {
+      margin-left: 6px;
+    }
+  }
+}
+.custom-login-form {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 290px;
+}
+.custom-form-submission {
+  border-top: 1px solid #e1e1e2;
+  bottom: 0;
+  display: flex;
+  left: 0;
+  padding: 8px;
+  position: fixed;
+  right: 0;
+
+  * {
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+}
+
+/** */

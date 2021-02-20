@@ -30,8 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  app_title: "Movie Night"
+  app_title: "Movie Night App"
   errors_abstract: "Something went wrong... Oopsie."
   venue_created: "Venue was successfully created."
   venue_updated: "Venue was successfully updated."
   venue_destroyed: "Venue was successfully destroyed."
+  movie_created: "Movie was successfully created."
+  movie_updated: "Movie was successfully updated."
+  movie_destroyed: "Movie was successfully destroyed."

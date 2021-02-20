@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="alert alert-info show mb-3">
+    <p class="text-info text-lead mb-0">
+      Browse suggested movies and add movies you would like to watch. 
+      Only the venue owner and you can edit or remove a movie. Everyone can 
+      nominate up to 2 movies (or give both votes to one).
+    </p>
+    <a href="#" class="btn-icon-simple btn-info alert-close">
+      <i class="fas fa-times"></i>
+    </a>
+  </div>
+  <!-- Movies list goes here -->
+  <% @movies.each do |movie| %>
+    <div class="card <%= !movie.is_disabled && "bg-surface" %> mb-3">
+      <div class="card-header">
+        <h2 class="heading-base"><%= movie.title %></h2>
+        <div class="flex text-secondary text-md">
+          <!-- <a href="#" class="btn ml-2"><i class="far fa-thumbs-up mr-2"></i>Give vote</a> -->
+          <div class="flex ml-2">
+            <div class="mr-3 screen-md">
+              <a href="#" class="btn btn-sm ml-1"><i class="far fa-thumbs-up text-info mr-1"></i>Upvote</a>
+              <a href="#" class="btn btn-sm ml-1"><i class="far fa-thumbs-down text-danger mr-1"></i>Downvote</a>
+            </div>
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <% if movie.is_disabled %>
+          <p class="text-danger text-md">UNAVAILABLE<% unless !movie.disabled_reason? %>: <%= movie.disabled_reason %><% end %></p>
+        <% end %>
+        <p><%= movie.description %></p>
+        <div class="flex justify-between">
+          <div class="">
+            <p class="mb-0 mr-3">Year: <strong><%= movie.year_of_release %></strong></p>
+          </div>
+          <div class="flex">
+          </div>
+        </div>
+      </div>
+      <% if is_owner(@venue) or is_author(movie) %>
+        <div class="card-footer">
+          <div></div>
+          <div class="card-footer-actions">
+            <%= link_to "Edit", edit_movie_path(movie), class: "btn" %>
+            <%= link_to movie, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn text-danger" do %>
+              Delete
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= link_to "+ Add movie", new_movie_path, class: "btn btn-full btn-lg" %>
+</div>

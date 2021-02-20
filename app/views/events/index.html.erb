@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="alert alert-info show mb-3">
+    <p class="text-info text-lead mb-0">
+      Browse events that are scheduled by venue owner. Mark whether you're attending, or maybe attending.
+    </p>
+    <a href="#" class="btn-icon-simple btn-info alert-close">
+      <i class="fas fa-times"></i>
+    </a>
+  </div>
+
+  <% @events.each do |event| %>
+    <div class="card <%= !event.cancelled && "bg-surface" %> mb-3">
+      <div class="card-header <%= !event.cancelled && "box-link" %>">
+        <h2 class="heading-base">
+          Movie night @<%= event.event_date.strftime("%-d.%-m.%y") %> starting from <%= event.event_time.strftime("%H:%M") %>
+        </h2>
+        <% if !event.cancelled %>
+          <div>
+            <%= link_to event_path(event), class: "btn-icon-simple box-main-link custom-card-link" do %>
+              <i class="fas fa-angle-double-right"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <% if event.cancelled %>
+          <p class="text-danger text-md">CANCELLED</p>
+        <% end %>
+        <p>Vote on movies NOW! Do it.</p>
+      </div>
+      <% if is_owner(@venue) %>
+        <div class="card-footer">
+          <div></div>
+          <div class="card-footer-actions">
+            <%= link_to "Edit", edit_event_path(event), class: "btn" %>
+            <% if event.cancelled %>
+              <%= link_to "Restore", 
+                  cancel_event_path(event, :cancelled => false),
+                  method: :put, 
+                  data: { confirm: 'Are you sure?' }, 
+                  class: "btn text-success" %>
+            <% else %>
+              <%= link_to "Cancel", 
+                  cancel_event_path(event, :cancelled => true), 
+                  method: :put, 
+                  data: { confirm: 'Are you sure?' }, 
+                  class: "btn text-warning" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= link_to '+ New Event', new_event_path, class: "btn btn-full btn-lg" %>
+</div>

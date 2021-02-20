@@ -1,0 +1,39 @@
+<%= form_with(model: event) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-container">
+    <%= form.label :event_date %>
+    <%= form.date_field :event_date, class: "form-control", autofocus: true %>
+  </div>
+  <div class="input-container">
+    <%= form.label :event_time %>
+    <%= form.time_field :event_time, class: "form-control" %>
+  </div>
+  <div class="input-container">
+    <%= form.label :showings %>
+    <%= form.number_field :showings, class: "form-control" %>
+  </div>
+  <div class="input-container">
+    <%= form.label :info %>
+    <%= form.text_area :info, class: "form-control" %>
+  </div>
+
+  <div class="custom-form-submission mt-4 screen-sm-only">
+    <%= link_to 'Cancel', events_path, class: "btn mr-1" %>
+    <%= form.submit (), class: "btn btn-primary ml-1" %>
+  </div>
+  <div class="flex justify-end mt-4 _screen-md">
+    <%= link_to 'Cancel', events_path, class: "btn" %>
+    <%= form.submit (), class: "btn btn-primary ml-2" %>
+  </div>
+<% end %>

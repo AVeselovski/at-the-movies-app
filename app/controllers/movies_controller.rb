@@ -1,15 +1,8 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_movie, only: %i[ show edit update destroy ]
-
-  # GET /movies or /movies.json
-  def index
-    @movies = Movie.all
-  end
-
-  # GET /movies/1 or /movies/1.json
-  def show
-  end
+  before_action :set_venue
+  before_action :set_movie, only: %i[ edit update destroy ]
+  before_action :check_ownership, only: %i[ edit update destroy ]
 
   # GET /movies/new
   def new
@@ -20,52 +13,58 @@ class MoviesController < ApplicationController
   def edit
   end
 
-  # POST /movies or /movies.json
+  # POST /movies
   def create
-    @movie = Movie.new(movie_params)
-    venue = Venue.find(2)
-    @movie.venue = venue
+    movie = Movie.new(movie_params)
+    movie.venue = @venue
+    movie.added_by = current_user.id
 
-
-    if @movie.save
-      flash[:success] = I18n.t 'venue_created'
-      redirect_to venue_path(venue)
+    if movie.save
+      flash[:success] = I18n.t 'movie_created'
+      redirect_to movies_path
     else
       flash.now[:error] = I18n.t 'errors_abstract'
       render 'new'
     end
   end
 
-  # PATCH/PUT /movies/1 or /movies/1.json
+  # PATCH/PUT /movies/1
   def update
-    respond_to do |format|
-      if @movie.update(movie_params)
-        format.html { redirect_to @movie, notice: "Movie was successfully updated." }
-        format.json { render :show, status: :ok, location: @movie }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @movie.errors, status: :unprocessable_entity }
-      end
+    if @movie.update(movie_params)
+      flash[:success] = I18n.t 'movie_updated'
+      redirect_to movies_path
+    else
+      flash.now[:error] = I18n.t 'errors_abstract'
+      render 'edit'
     end
   end
 
-  # DELETE /movies/1 or /movies/1.json
+  # DELETE /movies/1
   def destroy
     @movie.destroy
-    respond_to do |format|
-      format.html { redirect_to movies_url, notice: "Movie was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:warning] = I18n.t 'movie_destroyed'
+    redirect_to movies_url
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_venue
+      @venue = Venue.find(current_user.selected_venue)
+    end
     def set_movie
       @movie = Movie.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def movie_params
-      params.require(:movie).permit(:title, :description, :year_of_release)
+      params.require(:movie).permit(:title, :description, :year_of_release, :is_disabled, :disabled_reason)
+    end
+
+    # Only venue owner or entry author can edit
+    def check_ownership
+      if !helpers.is_owner(@venue) and !helpers.is_author(@movie)
+        flash[:error] = "Access denied!"
+        redirect_to venues_path
+      end
     end
 end

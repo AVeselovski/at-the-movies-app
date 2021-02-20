@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= t('app_title') %></title>
+    <title>
+      <% if get_selected_venue %>
+        <%= t('app_title') %> at <%= get_selected_venue.name %>
+      <% else %>
+        <%= t('app_title') %>
+      <% end %>
+    </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,36 +17,25 @@
   </head>
 
   <body>
-    <div class="header">
-      <div class="header-left">
-        <h1 class="heading-base">
-          <a href="#" class="text-secondary"><%= t('app_title') %></a>
-        </h1>
-      </div>
-      <div class="header-center screen-lg">
-        <ul class="header-nav">
-          <li class="nav-desktop-item">
-            <%= link_to "Venues", venues_path %>
-          </li>
-          <li class="nav-desktop-item">
-            <a href="#">Events</a>
-          </li>
-        </ul>
-      </div>
-      <div class="header-right">
-        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-inverted-danger" %>
-      </div>
-    </div>
+    <% if user_signed_in? %>
+      <%= render 'layouts/header' %>
+      <%= render 'layouts/sidebar' %>
+    <% end %>
 
-    <div class="page">
+    <div class="page mb-4">
       <%= yield %>
     </div>
 
     <aside class="flash-alerts">
       <% flash.each do |type, value| %>
-        <div class="flash-alert flash-alert-<%= type %>">
-          <%= value %>
-          <i class="fas fa-times"></i>
+        <% t = get_flash_type(type) %>
+        <div class="flash-alert flash-alert-<%= t %> show">
+          <p class="mb-0">
+            <%= value %>
+          </p>
+          <a href="#" class="btn-icon-simple btn-sm alert-close">
+            <i class="fas fa-times"></i>
+          </a>
         </div>
       <% end %>
     </aside>

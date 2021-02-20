@@ -1,0 +1,55 @@
+<div class="container">
+
+  <% if !current_user.selected_venue %>
+
+    <div class="box text-info text-lead mb-3">
+      Welcome <%= current_user.username %>, start by creating or joining a venue.
+    </div>
+    <div class="grid">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body py-4 text-align-center">
+            <h2 class="mb-0"><%= link_to "Available venues", venues_path %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body py-4 text-align-center">
+            <h2 class="mb-0"><%= link_to "+ Create a venue", new_venue_path %></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="mb-5">
+      <h1 class="mb-1"><%= @venue.name %></h1>
+      <div class="mb-4">
+        <span class="lead text-secondary mr-3"><i class="fas fa-map-marker-alt mr-2"></i><%= @venue.location %></span>
+        <% if is_owner(@venue) %>
+          <%= link_to 'Edit', edit_venue_path(@venue) %> |
+          <%= link_to 'Retire', @venue, method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger" %>
+        <% end %>
+      </div>
+      <p><%= @venue.description %></p>
+    </div>
+    <div class="grid">
+      <div class="col-12 col-md-6">
+        <div class="box box-link text-align-center custom-box-link">
+          <i class="fas fa-film fa-4x"></i>
+          <h2 class="heading-3 mb-0"><%= link_to "Movies selection", movies_path, class: "link-dark box-main-link" %></h2>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="box box-link text-align-center custom-box-link">
+          <i class="far fa-calendar-alt fa-4x"></i>
+          <h2 class="heading-3 mb-0"><%= link_to "Upcoming events", events_path, class: "link-dark box-main-link" %></h2>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

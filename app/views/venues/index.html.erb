@@ -1,28 +1,47 @@
 <div class="container">
-  <% if @venues.count == 0 %>
-    Welcome <%= current_user.username %>, start by creating a venue.
-  <% end %>
+  <div class="alert alert-info show mb-3">
+    <p class="text-info text-lead mb-0">
+      Browse venues that you're eligible for (i.e. not private and / or invited) or create your own. 
+      Only you can edit or delete your created venues.
+    </p>
+    <a href="#" class="btn-icon-simple btn-info alert-close">
+      <i class="fas fa-times"></i>
+    </a>
+  </div>
 
   <% @venues.each do |venue| %>
-    <div class="box mb-3">
-      <div class="flex justify-between mb-2">
-        <h2 class="heading-4 mb-0">
-          <%= link_to venue, class: "" do %>
-            <%= venue.name %>
-          <% end %>
+    <div class="card bg-surface mb-3">
+      <div class="card-header box-link">
+        <h2 class="heading-base">
+          <%= venue.name %>
         </h2>
+        
         <div>
-          <%= link_to edit_venue_path(venue), class: "link" do %>
-            <i class="fas fa-edit"></i>
-            Edit
-          <% end %>
-          <%= link_to venue, method: :delete, data: { confirm: 'Are you sure?' }, class: "link link-danger ml-3" do %>
-            <i class="fas fa-trash-alt"></i>
-            Delete
+          <%= link_to venue_path(venue), class: "btn-icon-simple box-main-link custom-card-link" do %>
+            <i class="fas fa-angle-double-right"></i>
           <% end %>
         </div>
       </div>
-      <p class="mb-0"><%= venue.location %></p>
+      <div class="card-body">
+        <p><%= venue.description %></p>
+        <div class="flex justify-between">
+          <span class="text-secondary mb-0">
+            <i class="fas fa-map-marker-alt mr-2"></i><%= venue.location %>
+          </span>
+          <div></div>
+        </div>
+      </div>
+      <% if is_owner(venue) %>
+        <div class="card-footer">
+          <div></div>
+          <div class="card-footer-actions">
+            <%= link_to "Edit", edit_venue_path(venue), class: "btn" %>
+            <%= link_to venue, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn text-danger" do %>
+              Delete
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% end %>
 

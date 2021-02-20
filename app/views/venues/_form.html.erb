@@ -17,15 +17,19 @@
   </div>
   <div class="input-container">
     <%= form.label :description %>
-    <%= form.text_area :description, class: "form-control", autofocus: true %>
+    <%= form.text_area :description, class: "form-control", rows: 5 %>
   </div>
   <div class="input-container">
     <%= form.label :location %>
-    <%= form.text_field :location, class: "form-control", autofocus: true %>
+    <%= form.text_field :location, class: "form-control" %>
   </div>
 
-  <div class="flex justify-end mt-4">
-    <%= link_to 'Cancel', venues_path %>
-    <%= form.submit (), class: "btn btn-primary ml-3" %>
+  <div class="custom-form-submission mt-4 screen-sm-only">
+    <%= link_to 'Cancel', movies_path, class: "btn mr-1" %>
+    <%= form.submit (), class: "btn btn-primary ml-1" %>
+  </div>
+  <div class="flex justify-end mt-4 _screen-md">
+    <%= link_to 'Cancel', venues_path, class: "btn" %>
+    <%= form.submit (), class: "btn btn-primary ml-2" %>
   </div>
 <% end %>

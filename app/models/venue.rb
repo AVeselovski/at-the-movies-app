@@ -1,6 +1,7 @@
 class Venue < ApplicationRecord
   has_many :venue_users, dependent: :destroy
   has_many :users, through: :venue_users
+  has_many :events
   has_many :movies
 
   validates :name, presence: true, length: { minimum: 3, maximum: 50 }

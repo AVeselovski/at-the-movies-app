@@ -1,0 +1,31 @@
+<div class="container">
+
+  <div class="mb-5">
+    <h1 class="heading-2 mb-2">Movie night @<%= @event.event_date.strftime("%-d.%-m.%y") %> starting from <%= @event.event_time.strftime("%H:%M") %></h1>
+    <div class="mb-4">
+      <span class="lead text-secondary mr-3"><i class="fas fa-map-marker-alt mr-2"></i><%= @venue.location %></span>
+      <% if is_owner(@venue) %>
+        <%= link_to 'Edit', edit_event_path(@event) %> |
+        <% if @event.cancelled %>
+          <%= link_to "Restore", 
+              cancel_event_path(@event, :cancelled => false),
+              method: :put, 
+              data: { confirm: 'Are you sure?' }, 
+              class: "link-success" %>
+        <% else %>
+          <%= link_to "Cancel", 
+              cancel_event_path(@event, :cancelled => true), 
+              method: :put, 
+              data: { confirm: 'Are you sure?' }, 
+              class: "link-warning" %>
+        <% end %> |
+        <%= link_to 'Delete', @event, method: :delete, data: { confirm: 'Are you sure?' }, class: "link-danger" %>
+      <% end %>
+    </div>
+    <p>BYOB! (Bring Your Own Beer)</p>
+  </div>
+  
+  <div class="box">
+    <%= render partial: "movies", collection: @movies %>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="sidebar bg-light">
+  <div class="sidebar-anchor">
+    <button class="btn-icon btn-sm">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <div class="sidebar-header flex">
+    <h2 class="heading-base text-slim">
+      <% if get_selected_venue %>
+        @<%= get_selected_venue.name %>
+      <% else %>
+        <%= t('app_title') %>
+      <% end %>
+    </h2>
+    <button class="btn-icon btn-sm">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="sidebar-body">
+    <!-- Mobile -->
+    <ul class="sidebar-nav center screen-sm-only">
+      <li class="sidebar-nav-item">
+        <%= link_to "Events", "#", class: "link-dark" %>
+      </li>
+      <li class="sidebar-nav-item">
+        <%= link_to "Movies", movies_path, class: "link-dark" %>
+      </li>
+      <li class="sidebar-nav-item mb-4">
+        <%= link_to "Venues", venues_path, class: "link-dark" %>
+      </li>
+      <li class="mb-4">
+        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "link-danger" %>
+      </li>
+    </ul>
+    <!-- Desktop -->
+    <ul class="sidebar-nav side _screen-md">
+      <li class="sidebar-nav-item">
+        <%= link_to "Events", "#", class: "link-dark" %>
+      </li>
+      <li class="sidebar-nav-item">
+        <%= link_to "Movies", movies_path, class: "link-dark" %>
+      </li>
+      <li class="sidebar-nav-item mb-4">
+        <%= link_to "Venues", venues_path, class: "link-dark" %>
+      </li>
+      <li class="mb-4">
+        <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "link-danger" %>
+      </li>
+    </ul>
+  </div>
+  <div class="sidebar-footer"></div>
+</div>
